@@ -11,6 +11,7 @@ export const theme = {
             secondary: "#4B6F44",
             terciary: "#228B22",
             designBackground: "rgba(0,128,0, 0.35)",
+            designBackgroundMobile: "rgba(0, 128, 0, 0.98)",
         },
         orange: {
             primary: "#ff4500",

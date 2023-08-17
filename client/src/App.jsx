@@ -22,11 +22,11 @@ function App() {
             element={isAuth ? <Painel/> : <Navigate to="/"/>}
           />
           <Route 
-            path="/anotaçoes" 
+            path="/notas" 
             element={isAuth ? <Notes/> : <Navigate to="/"/>}
           />
           <Route 
-            path="/anotaçoes/inserir" 
+            path="/notas/inserir" 
             element={isAuth ? <AddNote/> : <Navigate to="/"/>}
           />
           <Route 
@@ -38,7 +38,7 @@ function App() {
             element={isAuth ? <AddTrashCollect/> : <Navigate to="/"/>}
           />
           <Route 
-            path="/anotaçoes/:id" 
+            path="/notas/:id" 
             element={isAuth ? <EditNote/> : <Navigate to="/"/>}
           />
           <Route 

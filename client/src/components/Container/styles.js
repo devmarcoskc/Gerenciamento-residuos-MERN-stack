@@ -4,6 +4,10 @@ export const Container = styled.div`
     display: flex;
     height: 100%;
     width: 100%;
+
+    @media(max-width: 768px) {
+        
+    }
 `;
 
 export const Section = styled.section`
@@ -13,4 +17,8 @@ export const Section = styled.section`
     flex-direction: column;
     overflow-y: scroll;
     max-height: calc(100vh - 40px);
+
+    @media(max-width: 768px) {
+        z-index: 0;
+    }
 `

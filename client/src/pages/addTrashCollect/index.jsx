@@ -71,7 +71,6 @@ const AddTrashCollect = () => {
       return alert("Adicione os resíduos por categoria!")
     } 
 
-    console.log(data);
     try {
       const response = await createTrashCollection(data, token);
       navigate("/coletas");
@@ -163,8 +162,8 @@ const AddTrashCollect = () => {
                     <option value="vidro">vidro</option>
                     <option value="madeira">madeira</option>
                     <option value="papel/papelão">papel/papelão</option>
-                    <option value="misturados ou não recicláveis">misturados ou não recicláveis</option>
-                    <option value="contaminados ou perigosos">contaminados ou perigosos</option> 
+                    <option value="misturados">misturados ou não recicláveis</option>
+                    <option value="contaminados/perigosos">contaminados ou perigosos</option> 
                   </select>
 
                   <label>Quantidade em kg:</label>

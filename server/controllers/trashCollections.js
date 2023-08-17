@@ -8,6 +8,7 @@ export const createTrashCollection = async (req, res) => {
         const findBD = await GeneralStats.find({orgaoId});
 
         if(findBD.length === 0) {
+
             const newGeneralStats = new GeneralStats({
                 orgaoId: orgaoId,
                 totalResiduos: totalResiduos,
@@ -28,48 +29,47 @@ export const createTrashCollection = async (req, res) => {
             const savedGeneralStats = await newGeneralStats.save();
            
             res.status(201).json({savedGeneralStats, savedTrashCollection});
+            
         } else {
-        const newTrashCollection = new TrashCollection({
-            orgaoId,
-            nomeDaRota,
-            nomeDoBairro,
-            coletaSeletiva,
-            totalResiduos,
-            data,
-            residuoPorCategoria
-        });
-            
-        const generalStats = await GeneralStats.find({orgaoId});
-
-        generalStats[0].totalResiduos = generalStats[0].totalResiduos + totalResiduos;
-            
-        residuoPorCategoria.map((residuoCollection) => {
-            generalStats[0].totalResiduosPorCategoria.map((residuoGeneral) => {
-                if(residuoCollection.categoria === residuoGeneral.categoria) {
-                    return residuoGeneral.quantidade = residuoCollection.quantidade + residuoGeneral.quantidade;
-                }
+            const newTrashCollection = new TrashCollection({
+                orgaoId,
+                nomeDaRota,
+                nomeDoBairro,
+                coletaSeletiva,
+                totalResiduos,
+                data,
+                residuoPorCategoria
+            });
+                
+            const generalStats = await GeneralStats.find({orgaoId});
+            generalStats[0].totalResiduos = generalStats[0].totalResiduos + totalResiduos;
+                
+            residuoPorCategoria.map((residuoCollection) => {
+                generalStats[0].totalResiduosPorCategoria.map((residuoGeneral) => {
+                    if(residuoCollection.categoria === residuoGeneral.categoria) {
+                        return residuoGeneral.quantidade = residuoCollection.quantidade + residuoGeneral.quantidade;
+                    }
+                });
             });
 
-        });
-
-        let index;
-        for(let i in generalStats[0].totalResiduosPorCategoria) {
-            residuoPorCategoria.filter((residuoCollection) => {
-                if(generalStats[0].totalResiduosPorCategoria[i].categoria === residuoCollection.categoria) {
-                    index = generalStats[0].totalResiduosPorCategoria.indexOf(generalStats[0].totalResiduosPorCategoria[i]);
-                }
-            });
-        };
+            for(let i in generalStats[0].totalResiduosPorCategoria) {
+                residuoPorCategoria.filter((residuoCollection) => {
+                    if(generalStats[0].totalResiduosPorCategoria[i].categoria === residuoCollection.categoria) {
+                        let index = residuoPorCategoria.indexOf(residuoCollection);
+                        residuoPorCategoria.splice(index, 1);
+                        return;
+                    }
+                });
+            };
             
-        for(let i = index+1; i<residuoPorCategoria.length; i++) {
-            generalStats[0].totalResiduosPorCategoria.push(residuoPorCategoria[i]);
+            residuoPorCategoria.map((residuosLeft) => {
+                generalStats[0].totalResiduosPorCategoria.push(residuosLeft);
+            });
+            
+            const savedGeneralStats = await generalStats[0].save();
+            const savedTrashCollection = await newTrashCollection.save();
+            res.status(201).json({savedGeneralStats, savedTrashCollection});
         }
-
-        const savedGeneralStats = await generalStats[0].save();
-        const savedTrashCollection = await newTrashCollection.save();
-            
-        res.status(201).json({savedGeneralStats, savedTrashCollection});
-    }
     } catch(error) {
         res.status(400).json({error: error.message});
     }

@@ -53,8 +53,6 @@ if(generalStats !== null) {
       return ObjectToNivoCharts;
   });
 
-  const path = location.pathname;
-
   return (
     <ContainerLayout>
       <TitlePage 
@@ -70,10 +68,11 @@ if(generalStats !== null) {
 
           <C.ContainerGrid>
             <StatsItem title="Total Resíduos" value={generalStats.totalResiduos}/>
-            {generalStats.totalResiduosPorCategoria.map((trash) => (
+            {generalStats.totalResiduosPorCategoria.map((residuo) => (
               <StatsItem 
-                title={`Total ${trash.categoria}`} 
-                value={trash.quantidade}
+                key={residuo.categoria}
+                title={`Total ${residuo.categoria}`} 
+                value={residuo.quantidade}
                 isAvarage={false}
               />
             ))}
@@ -145,8 +144,9 @@ if(generalStats !== null) {
           <C.ContainerGrid>
             {generalStats.totalResiduosPorCategoria.map((residuo) => (
               <StatsItem 
+                key={residuo.categoria}
                 title={`Média ${residuo.categoria}`} 
-                value={(residuo.quantidade/ArraysLenght.trashCollections).toFixed(2)}
+                value={(residuo.quantidade/ArraysLenght.trashCollections).toFixed(1)}
                 isAvarage={true}
               />
             ))}
@@ -162,35 +162,42 @@ if(generalStats !== null) {
           orgao={user.orgao}
           text="Bem-vindo, comece os seus primeiros passos!"
         />
-        {isLoading && 
-          <Loading/>
-        }   
-        <main>
-          <C.ManualDiv>
-              <h1>Dicas e Introdução:</h1>
-              <p>
-                EcoAdministração é um sistema de gerenciamento de resíduos sólidos.
-                Foi feito para você ter o controle e estatísticas de suas coletas com poucos cliques.
-                Na questão de categorização dos resíduos sólidos, tentamos cobrir o máximo possível em relação à origem e ao tipo,
-                seguindo as ordens estabelecidas da CONAMA.
-                Mas, você pode adicionar seus próprios nomes em relação a categoria do resíduo.
-                Além do mais, não deixe de compartilhar informações úteis com seus colegas através do nosso sistema
-                de anotações. Feito isso, após adicionar sua primeira coleta, você pode voltar para essa página e 
-                checar suas estatísticas gerais!
-              </p>
-          </C.ManualDiv>
 
-          <C.WelcomeDiv>
-            <C.WelcomeItem>
-              <h1>Adicione sua primeira coleta:</h1>
-              <Link to="/coleta/inserir">Adicionar Coleta</Link>
-            </C.WelcomeItem>
-            <C.WelcomeItem>
-              <h1>Adicione sua primeira anotação:</h1>
-              <Link to="/anotaçoes/inserir">Adicionar Anotação</Link>
-            </C.WelcomeItem>
-          </C.WelcomeDiv>
-        </main>
+        {isLoading ? (
+          <>
+           <Loading/>
+          </>
+        ): (
+          <>
+            <main>
+              <C.ManualDiv>
+                <h1>Dicas e Introdução:</h1>
+                <p>
+                  EcoAdministração é um sistema de gerenciamento de resíduos sólidos.
+                  Foi feito para você ter o controle e estatísticas de suas coletas com poucos cliques.
+                  Na questão de categorização dos resíduos sólidos, tentamos cobrir o máximo possível em relação à origem e ao tipo,
+                  seguindo as ordens estabelecidas da CONAMA.
+                  Mas, você pode adicionar seus próprios nomes em relação a categoria do resíduo.
+                  Além do mais, não deixe de compartilhar informações úteis com seus colegas através do nosso sistema
+                  de anotações. Feito isso, após adicionar sua primeira coleta, você pode voltar para essa página e 
+                  checar suas estatísticas gerais!
+                </p>
+              </C.ManualDiv>
+
+              <C.WelcomeDiv>
+                <C.WelcomeItem>
+                  <h1>Adicione sua primeira coleta:</h1>
+                  <Link to="/coletas/inserir">Adicionar Coleta</Link>
+                </C.WelcomeItem>
+                <C.WelcomeItem>
+                  <h1>Adicione sua primeira anotação:</h1>
+                  <Link to="/notas/inserir">Adicionar Anotação</Link>
+                </C.WelcomeItem>
+              </C.WelcomeDiv>
+            </main>
+          </>
+        )} 
+        
       </ContainerLayout>
     )
   }

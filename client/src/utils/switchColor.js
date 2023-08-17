@@ -37,9 +37,9 @@ export function switchColor(color) {
           return "#800080";
         case("papel/papelão"):
           return "#0000FF";
-        case("contaminados ou perigosos"):
+        case("contaminados/perigosos"):
           return "#FFA500";
-        case("misturados ou não recicláveis"):
+        case("misturados"):
           return "#808080";
         case("eletrônico"):
           return "#d2b48c";

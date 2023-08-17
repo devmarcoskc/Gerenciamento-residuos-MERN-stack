@@ -54,7 +54,7 @@ const Notes = () => {
           <C.WarningNotesDiv>
             <h2>Você ainda não possui anotações!</h2>
             <C.AnchorDiv>
-              Faça sua primeira <Link to="/anotaçoes/inserir">anotação aqui</Link>
+              Faça sua primeira <Link to="/notas/inserir">anotação aqui</Link>
             </C.AnchorDiv>
           </C.WarningNotesDiv>
         )}

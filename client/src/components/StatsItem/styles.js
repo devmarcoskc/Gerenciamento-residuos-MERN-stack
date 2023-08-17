@@ -9,7 +9,7 @@ export const Container = styled.div`
     text-align: center;
     height: 130px;
     box-shadow: 0px 0px 5px 3px ${colors.orange.secondary};
-    width: 220px;
+    width: auto;
     border-radius: 15px;
     position: relative;
 
@@ -52,7 +52,7 @@ export const Container = styled.div`
 `;
 
 export const H1 = styled.h1`
-    font-size: 19px;
+    font-size: 17px;
     color: ${colors.orange.primary};
     font-weight: 500;
     margin-top: 20px;

@@ -7,11 +7,29 @@ export const NavBar = styled.nav`
     width: 20%;
     height: 100vh;
     background-color: ${colors.green.designBackground};
+
+    @media(max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        left: 0;
+        z-index: 100;
+        width: 60%;
+        background-color: ${colors.grey.primary};
+
+
+    }
 `;
+
 
 export const Img = styled.img`
     transform: scale(0.8);
     margin-top: 20px;
+
+    @media(max-width: 768px) {
+        transform: scale(0.65);
+    }
 `;
 
 export const Container = styled.div`
@@ -38,6 +56,16 @@ export const Container = styled.div`
 
         &:hover {
             color: ${colors.green.secondary};
+        }
+    }
+
+    @media(max-width: 768px) {
+        width: 85%;
+        gap: 40px;
+
+        a {
+            font-size: 16px;
+            width: 100%;
         }
     }
 `;

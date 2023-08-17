@@ -30,7 +30,6 @@ export const h4 = styled.h4`
     margin-top: 20px;
     font-size: 25px;
     color: ${colors.orange.primary};
-    line-height:
 `;
 
 export const ManualDiv = styled.div`
