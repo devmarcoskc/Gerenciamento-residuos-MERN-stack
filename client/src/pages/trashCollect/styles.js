@@ -8,6 +8,10 @@ export const FilterArea = styled.div`
     margin-top: 20px;
     width: 100%;
     gap: 25px;
+
+    @media(max-width: 768px) {
+        flex-direction: column;
+    }
 `;
 
 export const LabelAndInputDiv = styled.div`
@@ -35,6 +39,16 @@ export const LabelAndInputDiv = styled.div`
     input::placeholder {
         color: ${colors.orange.terciary};
     }
+
+    @media(max-width: 768px) {
+        max-width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+
+        input {
+            width: 70%;
+        }
+    }
 `
 
 export const GridArea = styled.div`
@@ -42,6 +56,10 @@ export const GridArea = styled.div`
     grid-template-columns: repeat(2, 1fr);
     margin-top: 30px;
     gap: 20px;
+
+    @media(max-width: 768px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
 `;
 
 export const WarningNotesDiv = styled.div`

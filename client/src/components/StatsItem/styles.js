@@ -49,6 +49,10 @@ export const Container = styled.div`
         width: 18px;
         color: white;
     }
+
+    @media(max-width: 768px) {
+        height: 120px;
+    }
 `;
 
 export const H1 = styled.h1`
@@ -60,7 +64,6 @@ export const H1 = styled.h1`
 
 export const Span = styled.span`
     text-align: center;
-    font-size: ${(props) => props.isAvarage ? "17.5px" : "22px"};
     color: ${colors.green.primary};
     font-weight: 500;
     line-height: 0.5;

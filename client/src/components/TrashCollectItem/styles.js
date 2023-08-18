@@ -10,7 +10,7 @@ export const ItemContainer = styled.div`
     width: auto;
     flex-direction: column;
     padding: 20px;
-    background-color: ${colors.green.designBackground};
+    background-color: ${colors.grey.backgroundColor};
     box-shadow: 0px 0px 5px 3px ${colors.orange.secondary};
     position: relative;
 
@@ -36,6 +36,14 @@ export const ItemContainer = styled.div`
         width: 21px;
         color: white;
     }
+
+    @media(max-width: 768px) {
+        width: 280px;
+    }
+
+    @media(max-width: 376px) {
+        width: 260px;
+    }
 `;
 
 export const TitleAndText = styled.div`
@@ -54,6 +62,22 @@ export const TitleAndText = styled.div`
         color: ${colors.green.primary};
         font-weight: bold;
     }
+
+    @media(max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        gap: 0px;
+    }
+
+    @media(max-width: 376px) {
+        h3 {
+            font-size: 16px;
+        }
+        span {
+            font-size: 16px;
+        }
+    }
 `;
 
 export const h2 = styled.h2`
@@ -65,6 +89,13 @@ export const CollectItem = styled.div`
     display: flex;
     gap: 10px;
     line-height: 0.5;
+
+    @media(max-width: 768px) {
+        flex-direction: column;
+        gap: 0px;
+        margin-top: 10px;
+        border-bottom: 1px solid ${colors.orange.primary};
+    }
 `;
 
 export const TitleAndTextItem = styled.div`
@@ -81,5 +112,13 @@ export const TitleAndTextItem = styled.div`
         font-size: 14px;
         color: ${colors.green.primary};
         font-weight: bold;
+    }
+
+    @media(max-width: 768px) {
+        gap: 2px;
+
+        span {
+            font-size: 13px;
+        }
     }
 `

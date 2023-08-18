@@ -60,11 +60,12 @@ export const editNote = async (req, res) => {
 export const deleteNote = async (req, res) => {
     try {
         const {noteId} = req.params;
+        const {orgaoId} = req.body;
 
         await Notes.findByIdAndDelete(noteId);
-        const notesUpdated = await Notes.find();
-
-        res.status(200).json(notesUpdated);
+        const updatedNotes = await Notes.find({orgaoId: orgaoId});
+       
+        res.status(200).json(updatedNotes);
     } catch(error) {
         res.status(404).json({error: error.message});
     }

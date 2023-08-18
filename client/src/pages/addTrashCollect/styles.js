@@ -20,6 +20,11 @@ export const H2 = styled.h2`
 export const Container = styled.div`
     display: flex;
     gap: 50px;
+
+    @media(max-width: 768px) {
+        flex-direction: column;
+        gap: 15px;
+    }
 `;
 
 export const LabelAndInputDiv = styled.div`
@@ -55,6 +60,12 @@ export const LabelAndInputDiv = styled.div`
         font-size: 15px;
         outline: 0;
     }
+
+    @media(max-width: 768px) {
+        input {
+            width: 100%;
+        }
+    }
 `;
 
 export const shortWidthInput = styled.input`
@@ -69,6 +80,10 @@ export const shortWidthInput = styled.input`
     &::placeholder {
         color: ${colors.orange.quaternary};
         font-size: 15px;
+    }
+
+    @media(max-width: 768px) {
+        width: 100%;
     }
 `;
 
@@ -128,6 +143,11 @@ export const CategoryArea = styled.div`
         cursor: pointer;
         font-size: 16px;
     }
+
+    @media(max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 `;
 
 export const OptionsDiv = styled.div`
@@ -143,6 +163,11 @@ export const OptionsDiv = styled.div`
         color: ${colors.green.primary};
         text-decoration: underline;
         cursor: pointer;
+    }
+
+    @media(max-width: 768px) {
+        margin-top: 10px;
+        margin-bottom: 5px;
     }
 `
 
@@ -169,6 +194,11 @@ export const FlexDivRow = styled.div`
         color: white;
         cursor: pointer;
     }
+
+    @media(max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 `;
 
 export const NumberInput = styled.input`
@@ -178,11 +208,15 @@ export const NumberInput = styled.input`
     font-size: 16px;
     border-bottom: 1px solid ${colors.orange.primary};
     color: ${colors.green.primary};
-    width: 60px !important;
+    width: 70px !important;
 
     &::placeholder {
         color: ${colors.orange.quaternary};
         font-size: 15px;
+    }
+
+    @media(max-width: 768px) {
+        width: 100px !important;
     }
 `;
 

@@ -4,7 +4,7 @@ export const theme = {
             primary: "#909090",
             secondary: "#787878",
             terciary: "#989898",
-            quaternary: "#DCDCDC"
+            backgroundColor: "rgb(243, 243, 243)",
         },
         green: {
             primary: "#00693E",

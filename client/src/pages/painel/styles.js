@@ -13,6 +13,10 @@ export const ContainerGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
+
+    @media(max-width: 768px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
 `;
 
 export const NivoGraphDiv = styled.div`

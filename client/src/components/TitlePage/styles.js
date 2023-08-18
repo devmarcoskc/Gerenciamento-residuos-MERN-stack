@@ -7,6 +7,10 @@ export const TitleAndTextDiv = styled.div`
     display: flex;
     flex-direction: column;
     line-height: 0;
+
+    @media(max-width: 768px) {
+        line-height: 1;
+    }
 `;
 
 export const H1 = styled.h1`

@@ -36,7 +36,7 @@ const FormNote = ({noteNome, setNoteNome, noteNota, setNoteNota, isEditing, id})
     if(isEditing) {
       try {
         const response = await editNote(id, data, token);
-        navigate("/anotaçoes");
+        navigate("/notas");
       } catch(error) {
         alert(error.message);
       }
@@ -44,7 +44,7 @@ const FormNote = ({noteNome, setNoteNome, noteNota, setNoteNota, isEditing, id})
       data.orgaoId = user._id;
       try {
         const response = await createNote(data, token);
-        navigate("/anotaçoes");
+        navigate("/notas");
       } catch(error) {
         alert(error.message);
       }

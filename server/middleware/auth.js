@@ -16,6 +16,6 @@ export const autorization = async (req, res, next) => {
         req.user = verified;
         next();
     } catch(error) {
-        res.status(500).json({error: messsage.error});
+        res.status(500).json({error: error.message});
     }
 }

@@ -8,6 +8,10 @@ export const NotesDiv = styled.div`
     grid-template-columns: repeat(3, 1fr);
     margin-top: 20px;
     gap: 20px;
+
+    @media(max-width: 768px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
 `;
 
 export const WarningNotesDiv = styled.div`

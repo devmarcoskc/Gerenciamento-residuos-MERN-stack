@@ -34,7 +34,23 @@ export const InfoAndName = styled.div`
         color: ${colors.green.primary};
         font-weight: bold;
     }
+
+    @media(max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid ${colors.orange.terciary};
+    }
 `;
+
+export const MobileDivider = styled.div`
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 1px;
+    width: 100%;
+    color: ${colors.orange.terciary};
+`
 
 export const H2 = styled.h2`
     margin-top: 40px;

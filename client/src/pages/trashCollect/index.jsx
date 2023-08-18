@@ -27,6 +27,7 @@ const TrashCollect = () => {
       setIsLoading(false);
     } catch(error) {
       alert(error.message);
+      setIsLoading(false);
     }
   }
 

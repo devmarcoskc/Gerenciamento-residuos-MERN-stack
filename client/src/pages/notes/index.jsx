@@ -7,19 +7,23 @@ import { getNotes } from '../../utils/apiCalls.js';
 import NoteItem from '../../components/NoteItem';
 import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading/';
+import { setNotes } from '../../redux/index.js';
+import { useDispatch } from 'react-redux';
 
 const Notes = () => {
-  const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
+  const notes = useSelector((state) => state.notes);
+
+  const dispatch = useDispatch();
 
   const getUserNotes = async () => {
     try {
         setIsLoading(true);
         const response = await getNotes(user._id, token);
-        setNotes(response);
+        dispatch(setNotes({notes:response}));
         setIsLoading(false);
     } catch (error) {
         alert(error.message);
@@ -41,7 +45,7 @@ const Notes = () => {
           <Loading/>
         }
 
-        {notes.length > 0 ? (
+        {notes ? (
           <C.NotesDiv>
             {notes.map((note) => (
                 <NoteItem

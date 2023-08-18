@@ -6,9 +6,9 @@ const {colors} = theme;
 export const NoteItem = styled.div`
     display: flex;
     flex-direction: column;
-    height: 300px;
+    min-height: 300px;
     width: 250px;
-    background-color: ${colors.green.designBackground};
+    background-color: ${colors.grey.backgroundColor};
     padding: 20px;
     position: relative;
     border-radius: 15px;
@@ -45,6 +45,10 @@ export const NoteItem = styled.div`
         svg {
             color: ${colors.orange.secondary};
         }
+    }
+
+    @media(max-width: 768px) {
+        min-height: 240px;
     }
 `;
 

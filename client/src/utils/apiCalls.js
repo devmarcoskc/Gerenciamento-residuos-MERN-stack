@@ -76,6 +76,18 @@ export const editNote = async (id, data, token) => {
     }
 }
 
+export const deleteNote = async (id, data, token) => {
+    try {
+        const response = await api.delete(`/notes/${id}`, {data, headers: {
+            Authorization: `Bearer ${token}`
+        }});
+
+        return response.data;
+    } catch(error) {
+        throw new Error('Ocorreu um erro ao deletar a anotação');
+    }
+}
+
 export const getTrashCollections = async (id, token) => {
     try {
         const response = await api.get(`/collect/${id}`, {headers: {

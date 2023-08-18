@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 const Painel = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [generalStats, setGeneralStats] = useState(null);
-  const [ArraysLenght, setArraysLenghts] = useState({
+  const [ArraysLength, setArraysLengths] = useState({
     notes: 0,
     trashCollections:0
   });
@@ -28,7 +28,7 @@ const Painel = () => {
      
       if(response.generalStats[0]) {
         setGeneralStats(response.generalStats[0]);
-        setArraysLenghts({
+        setArraysLengths({
           notes: response.notes.length,
           trashCollections: response.trashCollections.length,
         })
@@ -67,6 +67,7 @@ if(generalStats !== null) {
         <C.Main>
 
           <C.ContainerGrid>
+          <StatsItem title="Total Anotações" value={ArraysLength.notes} isNote={true}/>
             <StatsItem title="Total Resíduos" value={generalStats.totalResiduos}/>
             {generalStats.totalResiduosPorCategoria.map((residuo) => (
               <StatsItem 
@@ -146,7 +147,7 @@ if(generalStats !== null) {
               <StatsItem 
                 key={residuo.categoria}
                 title={`Média ${residuo.categoria}`} 
-                value={(residuo.quantidade/ArraysLenght.trashCollections).toFixed(1)}
+                value={(residuo.quantidade/ArraysLength.trashCollections).toFixed(1)}
                 isAvarage={true}
               />
             ))}

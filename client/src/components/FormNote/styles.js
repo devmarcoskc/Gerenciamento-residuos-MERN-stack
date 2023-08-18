@@ -79,6 +79,27 @@ export const Form = styled.form`
             opacity: 1;
         }
     }
+
+    @media(max-width: 768px) {
+        max-width: 100%;
+
+        h3 {
+            font-size: 20px;
+        }
+
+        input {
+            max-width: 100% !important;
+        }
+
+        textarea {
+            max-width: 100%;
+            height: 250px;
+        }
+
+        button {
+            max-width: 60%;
+        }
+    }
 `;
 
 export const Container = styled.div`

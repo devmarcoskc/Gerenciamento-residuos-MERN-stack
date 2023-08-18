@@ -4,11 +4,31 @@ import {BsClipboard2Fill} from "react-icons/bs"
 import {AiFillEdit} from "react-icons/ai";
 import {AiTwotoneDelete} from "react-icons/ai";
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { deleteNote } from '../../utils/apiCalls.js';
+import { useDispatch } from 'react-redux';
+import { setNotes } from '../../redux/index.js';
 
 const NoteItem = ({note}) => {
+  const token = useSelector((state) => state.token);
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const FormatDate = (date) => {
      return date.slice(0,10);
+  }
+
+  const handleDeleteNote = async () => {
+    const data = {
+        orgaoId: user._id,
+    }
+
+    try {
+        const response = await deleteNote(note._id, data, token);
+        dispatch(setNotes({notes: response}));
+    } catch(error) {
+        alert(error.message);
+    }
   }
 
   return (
@@ -23,11 +43,11 @@ const NoteItem = ({note}) => {
         <C.Description>
             {note.nota}
         </C.Description>
-        <Link to={`/anotaçoes/${note._id}`}>
+        <Link to={`/notas/${note._id}`}>
             <AiFillEdit/>
         </Link>
         <C.IconDiv>
-            <AiTwotoneDelete/>
+            <AiTwotoneDelete onClick={handleDeleteNote}/>
         </C.IconDiv>
     </C.NoteItem>
   )
