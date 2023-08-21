@@ -30,10 +30,10 @@ export const ItemContainer = styled.div`
 
     svg {
         position: absolute;
-        bottom: 2.5%;
+        bottom: 3%;
         right: 3.5%;
-        height: 21px;
-        width: 21px;
+        height: 24px;
+        width: 24px;
         color: white;
     }
 

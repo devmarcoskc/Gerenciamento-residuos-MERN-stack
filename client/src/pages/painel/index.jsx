@@ -64,10 +64,11 @@ if(generalStats !== null) {
       {isLoading && 
         <Loading/>
       }
-        <C.Main>
 
+      {!isLoading &&
+        <C.Main>
           <C.ContainerGrid>
-          <StatsItem title="Total Anotações" value={ArraysLength.notes} isNote={true}/>
+            <StatsItem title="Total Anotações" value={ArraysLength.notes} isNote={true}/>
             <StatsItem title="Total Resíduos" value={generalStats.totalResiduos}/>
             {generalStats.totalResiduosPorCategoria.map((residuo) => (
               <StatsItem 
@@ -80,7 +81,7 @@ if(generalStats !== null) {
           </C.ContainerGrid>
 
           <C.NivoGraphDiv>
-            <C.h1>Gráfico Geral:</C.h1>
+            <C.h1>Gráfico Geral em kg:</C.h1>
             <ResponsivePie
               data={ArrayToNivo}
               colors={(bar) => switchColor(bar.data.id)}
@@ -153,6 +154,7 @@ if(generalStats !== null) {
             ))}
           </C.ContainerGrid>
         </C.Main>
+      }
     </ContainerLayout>
   )
   } else {

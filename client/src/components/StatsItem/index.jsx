@@ -1,6 +1,5 @@
 import React from 'react'
 import * as C from "./styles.js";
-import {BsTrash3Fill} from "react-icons/bs";
 import {ImStatsBars} from "react-icons/im";
 
 const StatsItem = ({title, value, isAvarage, isNote}) => {
@@ -18,7 +17,7 @@ const StatsItem = ({title, value, isAvarage, isNote}) => {
         {!isAvarage && isNote &&
           <C.Span>{value}</C.Span>
         }
-        <BsTrash3Fill/>
+        <ImStatsBars/>
         <C.SVGStats>
             <ImStatsBars/>
         </C.SVGStats>

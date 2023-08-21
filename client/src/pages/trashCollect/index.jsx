@@ -7,6 +7,7 @@ import { getTrashCollections } from '../../utils/apiCalls';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Loading from "../../components/Loading";
+import FiltersInputs from '../../components/FiltersInputs';
 
 const TrashCollect = () => {
   const [trashCollections, setTrashCollections] = useState([]);
@@ -42,7 +43,7 @@ const TrashCollect = () => {
   });
   const filteredTrashCollection = TrashCollectionList.filter((trash) => {
     return trash.nomeDoBairro.toLowerCase().includes(lowerSearchByAddres);
-  })
+  });
 
   return (
     <ContainerLayout>
@@ -55,30 +56,13 @@ const TrashCollect = () => {
         <Loading/>
       }
 
-      {trashCollections.length > 0 ? (
+      {trashCollections.length > 0 && !isLoading && 
         <>
-          <C.FilterArea>
-            <C.LabelAndInputDiv>
-              <label>Filtrar por data:</label>
-              <input
-                value={search.filterBydate}
-                type="text"
-                placeholder="Exemplo: 25/07/2023"
-                onChange={(e) => setSearch({...search, filterBydate: e.target.value})}
-              />
-            </C.LabelAndInputDiv>
-
-            <C.LabelAndInputDiv>
-              <label>Filtrar por bairro:</label>
-              <input
-                value={search.filterByAddress}
-                type="text"
-                placeholder="Exemplo: 'Jardim'"
-                onChange={(e) => setSearch({...search, filterByAddress: e.target.value})}
-              />
-            </C.LabelAndInputDiv>
-          </C.FilterArea>
-
+        <FiltersInputs
+          search={search}
+          setSearch={setSearch}
+          isAddress={true}
+        />
           <C.GridArea>
             {search.filterBydate.length > 0 || search.filterByAddress.length > 0 ? (
               <>
@@ -101,7 +85,9 @@ const TrashCollect = () => {
             )}
           </C.GridArea>
         </>
-      ) : (
+      } 
+
+      {trashCollections.length === 0 && !isLoading && 
         <>
           <C.WarningNotesDiv>
             <h2>Você não possui nenhuma coleta</h2>
@@ -110,7 +96,7 @@ const TrashCollect = () => {
             </C.AnchorDiv>
           </C.WarningNotesDiv>
         </>
-      )}
+      }
       
     </ContainerLayout>
   )

@@ -8,6 +8,17 @@ export const NavBar = styled.nav`
     height: 100vh;
     background-color: ${colors.grey.backgroundColor};
 
+    @media(max-width: 1024px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        right: 0;
+        z-index: 100;
+        width: 50%;
+        background-color: whitesmoke;
+        transition: all ease .7s;
+    }
     @media(max-width: 768px) {
         display: flex;
         flex-direction: column;

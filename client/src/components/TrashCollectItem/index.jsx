@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {memo} from 'react'
 import * as C from "./styles.js";
-import {BsTrash3Fill} from "react-icons/bs";
+import {ImStatsBars} from "react-icons/im";
 
 const TrashCollectItem = ({trashCollect}) => {
   return (
     <C.ItemContainer>
-        <BsTrash3Fill/>
+        <ImStatsBars/>
 
         <C.TitleAndText>
          <h3>Data da Coleta:</h3>
@@ -53,4 +53,4 @@ const TrashCollectItem = ({trashCollect}) => {
   )
 }
 
-export default TrashCollectItem;
+export default memo(TrashCollectItem);

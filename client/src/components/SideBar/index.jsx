@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import * as C from "./styles.js";
 import Logo from "../../assets/logo.png";
 import { Link } from 'react-router-dom';
+import {setLogout} from "../../redux/index.js";
 import {TbPresentationAnalytics} from "react-icons/tb";
 import {FaTrashRestoreAlt} from "react-icons/fa";
 import {BsClipboard2PlusFill, BsTrash3Fill, BsClipboard2PulseFill} from "react-icons/bs";
@@ -79,7 +80,7 @@ const Sidebar = () => {
                     <BiSolidUser/>
                 </Link>
         
-                <Link to="/">Sair</Link>    
+                <Link to="/" onClick={() => dispatch(setLogout())}>Sair</Link>    
         </C.Container>
     </C.NavBar>
   )

@@ -21,7 +21,7 @@ export const Container = styled.div`
     display: flex;
     gap: 50px;
 
-    @media(max-width: 768px) {
+    @media(max-width: 1024px) {
         flex-direction: column;
         gap: 15px;
     }

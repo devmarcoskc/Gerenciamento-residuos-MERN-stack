@@ -3,7 +3,7 @@ import * as C from "./styles.js";
 
 const Loading = () => {
   return (
-    <C.Span>Carregando suas informações, aguarde um momento!</C.Span>
+    <C.Span>Carregando suas informações, aguarde um momento...</C.Span>
   )
 }
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react'
 import * as C from "./styles.js";
 import {BsClipboard2Fill} from "react-icons/bs"
 import {AiFillEdit} from "react-icons/ai";
@@ -53,4 +53,4 @@ const NoteItem = ({note}) => {
   )
 }
 
-export default NoteItem;
+export default memo(NoteItem);

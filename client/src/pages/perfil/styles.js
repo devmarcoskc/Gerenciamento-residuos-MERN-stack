@@ -35,6 +35,11 @@ export const InfoAndName = styled.div`
         font-weight: bold;
     }
 
+    @media(max-width: 1024px) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     @media(max-width: 768px) {
         flex-direction: column;
         align-items: flex-start;

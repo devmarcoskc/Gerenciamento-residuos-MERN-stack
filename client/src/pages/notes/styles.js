@@ -9,10 +9,19 @@ export const NotesDiv = styled.div`
     margin-top: 20px;
     gap: 20px;
 
+    @media(max-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
     @media(max-width: 768px) {
         grid-template-columns: repeat(1, 1fr);
     }
 `;
+
+export const NotesFiltersDiv = styled.div`
+    display: flex;
+    max-width: 50%;
+    
+`
 
 export const WarningNotesDiv = styled.div`
     display: flex;

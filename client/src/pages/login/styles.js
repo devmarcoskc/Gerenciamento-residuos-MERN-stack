@@ -4,7 +4,7 @@ import { theme } from "../../theme";
 const {colors} = theme;
 
 export const Container = styled.div`
-    height: 100vh;
+    min-height: 100vh;
     width: 50%;
     margin: auto;
     display: flex;
@@ -14,6 +14,7 @@ export const Container = styled.div`
     line-height: 0;
 
     @media(max-width: 768px) {
+        min-height: 100vh;
         width: 80%;
         margin: auto;
         line-height: 1.2;
@@ -23,6 +24,7 @@ export const Container = styled.div`
 export const Image = styled.img`
     @media(max-width: 768px) {
         transform: scale(0.90);
+        margin-top: 10px;
     }
 `
 
@@ -131,5 +133,10 @@ export const RegisterDivFlex= styled.div`
     gap: 40px;
     justify-content: space-between;
     width: 100%;
+
+    @media(max-width: 768px) {
+        flex-direction: column;
+        gap: 10px;
+    }
 `
 
