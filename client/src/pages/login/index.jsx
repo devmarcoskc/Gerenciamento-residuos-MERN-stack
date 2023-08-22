@@ -98,6 +98,13 @@ const Login = () => {
         o loading das funcionalidades pode demorar um pouco! Por favor,
         seja paciente para testar.
       </C.SpanWarining>
+      <C.SpanWarining>
+        Caso queira logar em uma conta já existente:
+        <br/>
+        email: recycle@gmail.com
+        <br/>
+        senha: algumasenha
+      </C.SpanWarining>
     </C.Container>
   )
 }

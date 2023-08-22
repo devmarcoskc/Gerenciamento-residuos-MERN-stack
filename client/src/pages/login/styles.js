@@ -141,9 +141,11 @@ export const RegisterDivFlex= styled.div`
 `;
 
 export const SpanWarining = styled.span`
-    font-size: 15px;
+    width: 100%;
+    align-items: flex-start;
+    font-size: 13px;
     line-height: 1;
-    color: red;
-    margin-top: 15px;
+    color: ${colors.orange.terciary};
+    margin-top: 5px;
 `
 
