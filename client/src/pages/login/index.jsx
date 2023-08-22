@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../utils/apiCalls.js';
 import { setLogin } from '../../redux/index.js';
+import Loading from "../../components/Loading";
 
 const loginUserSchema = z.object({
   email: z.string()
@@ -22,6 +23,7 @@ const loginUserSchema = z.object({
 const Login = () => {
   const [isRegisterNeeded, setIsRegisterNeeded] = useState(false);
   const [invalidErrorMsg, setInvalidErrorMsg] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,6 +34,7 @@ const Login = () => {
 
   const LoginUser = async (data) => {
     try {
+      setIsLoading(true);
       const response = await loginUser(data);
         
       dispatch(
@@ -40,8 +43,10 @@ const Login = () => {
           token: response.data.token,
         })
       )
+      setIsLoading(false);
       navigate("/geral");
     } catch (error) {
+      setIsLoading(false);
       if(error.response.status === 406) {
         setInvalidErrorMsg(`${error.response.data.msg}`)
       }
@@ -56,55 +61,64 @@ const Login = () => {
         de resíduos sólidos!
       </C.P>
 
-      {isRegisterNeeded === false ? (
-        <C.Form onSubmit={handleSubmit(LoginUser)}>
-          <C.InputsDiv>
-            <label htmlFor='email'>Email:</label>
-            <input 
-              type="email" 
-              placeholder="Digite seu email"
-              {...register('email')}
-            />
-            {errors.email && <span>{errors.email.message}</span>}
-          </C.InputsDiv>
+      {isLoading &&
+        <Loading/>
+      }
 
-          <C.InputsDiv>
-            <label htmlFor='password'>Senha:</label>
-            <input 
-              type="password" 
-              placeholder="Digite sua senha"
-              {...register('password')}
-            />
-            {errors.password && <span>{errors.password.message}</span>}
-            {invalidErrorMsg && <span>{invalidErrorMsg}</span>}
-          </C.InputsDiv>
+      {!isLoading && 
+      <>
+        {isRegisterNeeded === false ? (
+          <C.Form onSubmit={handleSubmit(LoginUser)}>
+            <C.InputsDiv>
+              <label htmlFor='email'>Email:</label>
+              <input 
+                type="email" 
+                placeholder="Digite seu email"
+                {...register('email')}
+              />
+              {errors.email && <span>{errors.email.message}</span>}
+            </C.InputsDiv>
 
-          <C.Button>Fazer Login</C.Button>
-        </C.Form>
-      ) : (
-        <Register setIsRegisterNeeded={setIsRegisterNeeded}/>
-      )}
+            <C.InputsDiv>
+              <label htmlFor='password'>Senha:</label>
+              <input 
+                type="password" 
+                placeholder="Digite sua senha"
+                {...register('password')}
+              />
+              {errors.password && <span>{errors.password.message}</span>}
+              {invalidErrorMsg && <span>{invalidErrorMsg}</span>}
+            </C.InputsDiv>
 
-      <C.TextToRegisterArea>
-        {isRegisterNeeded ? (
-          <p>Já tem uma conta ? <span onClick={() => setIsRegisterNeeded(false)}>Faça seu login</span></p>
-        ): (
-          <p>Não tem uma conta ? <span onClick={() => setIsRegisterNeeded(true)}>Registre-se aqui</span></p>
+            <C.Button>Fazer Login</C.Button>
+          </C.Form>
+        ) : (
+          <Register setIsRegisterNeeded={setIsRegisterNeeded}/>
         )}
-      </C.TextToRegisterArea>
 
-      <C.SpanWarining>
-        Como o sistema está sendo hospedado em site gratuito, 
-        o loading das funcionalidades pode demorar um pouco! Por favor,
-        seja paciente para testar.
-      </C.SpanWarining>
-      <C.SpanWarining>
-        Caso queira logar em uma conta já existente:
-        <br/>
-        email: recycle@gmail.com
-        <br/>
-        senha: algumasenha
-      </C.SpanWarining>
+        <C.TextToRegisterArea>
+          {isRegisterNeeded ? (
+            <p>Já tem uma conta ? <span onClick={() => setIsRegisterNeeded(false)}>Faça seu login</span></p>
+          ): (
+            <p>Não tem uma conta ? <span onClick={() => setIsRegisterNeeded(true)}>Registre-se aqui</span></p>
+          )}
+        </C.TextToRegisterArea>
+
+        <C.SpanWarining>
+          Como o sistema está sendo hospedado em site gratuito, 
+          o loading das funcionalidades pode demorar um pouco! Por favor,
+          seja paciente para testar.
+        </C.SpanWarining>
+        <C.SpanWarining>
+          Caso queira logar em uma conta já existente:
+          <br/>
+          email: recycle@gmail.com
+          <br/>
+          senha: algumasenha
+        </C.SpanWarining>
+      </>
+      }
+
     </C.Container>
   )
 }

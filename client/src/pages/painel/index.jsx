@@ -22,8 +22,8 @@ const Painel = () => {
   const token = useSelector((state) => state.token);
 
   const getStats = async () => {
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       const response = await getGeneralStats(user._id, token);
      
       if(response.generalStats[0]) {
@@ -33,10 +33,12 @@ const Painel = () => {
           trashCollections: response.trashCollections.length,
         })
       }
+      setIsLoading(false);
     } catch(error) {
+      setIsLoading(false);
       alert(error.message);
     }
-    setIsLoading(false);
+    
   }
 
   useEffect(() => {

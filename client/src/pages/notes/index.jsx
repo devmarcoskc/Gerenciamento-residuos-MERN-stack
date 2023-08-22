@@ -37,7 +37,8 @@ const Notes = () => {
         dispatch(setNotes({notes:ChangedResponse}));
         setIsLoading(false);
     } catch (error) {
-        alert(error.message);
+      setIsLoading(false);
+      alert(error.message);  
     }
   }
 
