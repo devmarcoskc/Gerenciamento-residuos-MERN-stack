@@ -22,9 +22,9 @@ export const Container = styled.div`
 `;
 
 export const Image = styled.img`
+    margin-top: 10px;
     @media(max-width: 768px) {
         transform: scale(0.90);
-        margin-top: 10px;
     }
 `
 
@@ -138,5 +138,12 @@ export const RegisterDivFlex= styled.div`
         flex-direction: column;
         gap: 10px;
     }
+`;
+
+export const SpanWarining = styled.span`
+    font-size: 15px;
+    line-height: 1;
+    color: red;
+    margin-top: 15px;
 `
 

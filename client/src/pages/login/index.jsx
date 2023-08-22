@@ -92,6 +92,12 @@ const Login = () => {
           <p>Não tem uma conta ? <span onClick={() => setIsRegisterNeeded(true)}>Registre-se aqui</span></p>
         )}
       </C.TextToRegisterArea>
+
+      <C.SpanWarining>
+        Como o sistema está sendo hospedado em site gratuito, 
+        o loading das funcionalidades pode demorar um pouco! Por favor,
+        seja paciente para testar.
+      </C.SpanWarining>
     </C.Container>
   )
 }
