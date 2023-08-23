@@ -149,7 +149,7 @@ if(generalStats !== null) {
             {generalStats.totalResiduosPorCategoria.map((residuo) => (
               <StatsItem 
                 key={residuo.categoria}
-                title={`Média ${residuo.categoria}`} 
+                title={`Resíduo ${residuo.categoria}`} 
                 value={(residuo.quantidade/ArraysLength.trashCollections).toFixed(1)}
                 isAvarage={true}
               />

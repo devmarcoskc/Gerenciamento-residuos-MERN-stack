@@ -7,7 +7,7 @@ const StatsItem = ({title, value, isAvarage, isNote}) => {
     <C.Container>
         <C.H1>{title}:</C.H1>
         {isAvarage && !isNote && 
-          <C.Span style={{fontSize: isAvarage ? "17.5px" : "22px"}}>
+          <C.Span style={{fontSize: isAvarage ? "17px" : "22px"}}>
             {value}kg por coleta
           </C.Span>
         }
