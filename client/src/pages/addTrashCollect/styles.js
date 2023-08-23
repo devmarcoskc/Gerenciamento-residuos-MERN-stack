@@ -230,6 +230,12 @@ export const SpanObersvation = styled.span`
     font-size: 14px;
     color: ${colors.orange.primary};
     margin-top: 15px;
+`;
+
+export const ButtonsDiv = styled.div`
+    display: flex;
+    gap: 30px;
+    margin: 20px 0px;
 `
 
 export const Button = styled.button`
@@ -243,11 +249,15 @@ export const Button = styled.button`
     outline: 0;
     opacity: 0.85;
     transition: all ease .7s;
-    margin: 20px 0px;
     cursor: pointer;
 
     &:hover {
         opacity: 1;
+    }
+
+    @media(max-width: 768px) {
+        width: 120px;
+        font-size: 16px;
     }
 `
 

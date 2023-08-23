@@ -45,7 +45,7 @@ const AddTrashCollect = () => {
   const token = useSelector((state) => state.token);
   const navigate = useNavigate();
 
-  const {register, handleSubmit, formState: {errors}, control, setValue} = useForm({
+  const {register, handleSubmit, reset, formState: {errors}, control, setValue} = useForm({
     resolver: zodResolver(createTrashCollectSchema),
   });
 
@@ -56,6 +56,11 @@ const AddTrashCollect = () => {
 
   const addNewTrashCollect = () => {
     append({categoria: '', quantidade: 0})
+  }
+
+  const handleResetForm = () => {
+    remove();
+    reset();
   }
 
   const handleCreateTrashCollect = async (data) => {
@@ -190,7 +195,6 @@ const AddTrashCollect = () => {
                   />
                 </C.FlexDivRow>
               )}
-             
               {errors.residuoPorCategoria?.[index]?.categoria && <C.SpanError>{errors.residuoPorCategoria?.[index]?.categoria.message}</C.SpanError>}
               {errors.residuoPorCategoria?.[index]?.quantidade && <C.SpanError>{errors.residuoPorCategoria?.[index]?.quantidade.message}</C.SpanError>}
             </C.LabelAndInputDiv>
@@ -200,7 +204,10 @@ const AddTrashCollect = () => {
           {!isInputToSelect &&
             <C.SpanObersvation>Atenção, cheque os nomes para ver se estão corretos</C.SpanObersvation>
           }
-          <C.Button type="submit">Enviar</C.Button>
+          <C.ButtonsDiv>
+            <C.Button type="submit">Enviar</C.Button>
+            <C.Button type="button" onClick={handleResetForm}>Resetar</C.Button>
+          </C.ButtonsDiv>
         </C.Form>
     </ContainerLayout>
   )
