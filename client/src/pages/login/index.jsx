@@ -107,7 +107,7 @@ const Login = () => {
         <C.SpanWarining>
           Como o sistema está sendo hospedado em site gratuito, 
           o loading das funcionalidades pode demorar um pouco! Por favor,
-          seja paciente para testar.
+          seja paciente para testar. Obs: você pode criar uma conta com email fake!
         </C.SpanWarining>
         <C.SpanWarining>
           Caso queira logar em uma conta já existente:
