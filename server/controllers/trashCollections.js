@@ -86,3 +86,56 @@ export const getTrashCollections = async (req, res) => {
         res.status(404).json({error: error.message});
     }
 }
+
+export const getTrashCollectionsByAddress = async (req, res) => {
+    try {
+        const {orgaoId} = req.params;
+        const {addressEncoded} = req.params;
+
+        const address = decodeURI(addressEncoded);
+
+        const trashCollections = await TrashCollection.find({orgaoId: orgaoId, nomeDoBairro:address});
+        if(trashCollections.length === 0) return res.status(200).json({msg: "Bairro não encontrado"});
+
+        const totalResiduos = trashCollections.reduce((result, quantity) => {
+            return (result + quantity.totalResiduos);
+        }, 0);
+
+        let ResiduosLeft = [];
+        let index = trashCollections.length;
+        for(let i=1; i < index; i++) {
+            trashCollections[i].residuoPorCategoria.map((residuo) => {
+                trashCollections[0].residuoPorCategoria.map((residuoBase) => {
+                    if(residuo.categoria === residuoBase.categoria) {
+                        residuoBase.quantidade = residuo.quantidade + residuoBase.quantidade;
+                        let indexToSplit = trashCollections[i].residuoPorCategoria.indexOf(residuo);
+                        trashCollections[i].residuoPorCategoria.splice(indexToSplit, 1);
+                        trashCollections[i].residuoPorCategoria.filter((residuosLeft) => {
+                            ResiduosLeft.push(residuosLeft);
+                        })
+                    }
+                });
+            });
+        }
+        
+        let totalResiduosPorCategoria = [];
+        ResiduosLeft.filter((residuo) => {
+            totalResiduosPorCategoria.push(residuo);
+        });
+        trashCollections[0].residuoPorCategoria.filter((residuo) => {
+            totalResiduosPorCategoria.push(residuo);
+        });
+    
+        const generalStats = {
+            orgaoId,
+            totalResiduos,
+            totalResiduosPorCategoria,
+            bairro: address,
+            coletas: trashCollections.length
+        }
+        
+        res.status(200).json(generalStats);
+    } catch (error) {
+        res.status(404).json({error: error.message});
+    }
+}

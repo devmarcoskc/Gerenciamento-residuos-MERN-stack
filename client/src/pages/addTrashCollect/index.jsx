@@ -92,7 +92,7 @@ const AddTrashCollect = () => {
             text="Preencha os requisitos abaixo para adicionar uma coleta"
         />
         <C.Form onSubmit={handleSubmit(handleCreateTrashCollect)}>
-          <C.H2>Publique a sua coleta</C.H2>
+          <C.H2>Inclua sua coleta</C.H2>
 
           <C.Container>
             <C.LabelAndInputDiv>

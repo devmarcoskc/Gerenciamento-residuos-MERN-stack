@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react';
 import * as C from "./styles.js";
 import {ImStatsBars} from "react-icons/im";
 
@@ -25,4 +25,4 @@ const StatsItem = ({title, value, isAvarage, isNote}) => {
   )
 }
 
-export default StatsItem;
+export default memo(StatsItem);

@@ -79,7 +79,7 @@ export const editNote = async (id, data, token) => {
 export const deleteNote = async (id, data, token) => {
     try {
         const response = await api.delete(`/notes/${id}`, {data, headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
         }});
 
         return response.data;
@@ -108,6 +108,20 @@ export const createTrashCollection = async (data, token) => {
 
         return response.data;
     } catch(error) {
-        throw new Error('Ocorreu ao adicionar a coleta, tente mais tarde');
+        throw new Error('Ocorreu um erro ao adicionar a coleta, tente mais tarde');
+    }
+}
+
+export const getStatsByAddress = async (id, address, token) => {
+    const AddresToURL= encodeURI(address);
+    
+    try {
+        const response = await api.get(`/collect/${id}/${AddresToURL}`, {headers: {
+            Authorization: `Bearer ${token}`,
+        }});
+
+        return response.data;
+    } catch(error) {
+        throw new Error('Ocorreu um erro ao pesquisar o bairro, tente mais tarde');
     }
 }

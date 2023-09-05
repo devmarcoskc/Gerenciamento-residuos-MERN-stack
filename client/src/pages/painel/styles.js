@@ -9,6 +9,146 @@ export const Main = styled.main`
     margin-top: 20px;
 `;
 
+export const MainInfosArea = styled.div`
+    display: flex;
+    gap: 40px;
+    margin-bottom: 10px;
+
+    @media(max-width: 1024px) {
+        flex-direction: column;
+        gap: 5px;
+    }
+`;
+
+export const GeneralStatsArea = styled.div`
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    h1 {
+        font-size: 20px;
+        color: ${colors.orange.primary};
+        font-weight: 500;
+        line-height: 0;
+    }
+
+    span {
+        font-size: 20px;
+        text-align: center;
+        color: ${colors.green.primary};
+        font-weight: 500;
+        line-height: 0.5;
+    }
+
+    @media(max-width: 320px) {
+        h1 {
+            font-size: 17px;
+            line-height: 0.4;
+        }
+
+        span {
+            font-size: 17px;
+        }
+    }
+`;
+
+export const NameAddress = styled.h1`
+    font-size: 25px;
+    line-height: 0;
+    color: ${colors.orange.primary};
+`
+
+export const FilterByAdressArea = styled.div`
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex: 1;
+
+    h2 {
+        font-size: 20px;
+        color: ${colors.orange.primary};
+        font-weight: 500;
+    }
+
+    @media(max-width: 1024px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+    }
+
+    @media(max-width: 320px) {
+        h2 {
+            font-size: 17px;
+        }
+    }
+`;
+
+export const InputAndSearchButtonArea = styled.div`
+    display: flex;
+    align-items: center;
+    width: 300px;
+    font-size: 15px;
+    height: 30px;
+    position: relative;
+
+    input {
+        outline: none;
+        height: 30px;
+        width: 100%;
+        font-size: 15px;
+        color: ${colors.green.secondary};
+        border: 1px solid ${colors.orange.terciary};
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        padding-left: 8px;
+    }
+
+    input::placeholder {
+        color: ${colors.orange.terciary};
+    }
+
+    button {
+        outline: 0;
+        border: none;
+        background-color: ${colors.orange.terciary};
+        height: 34px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+
+        svg {
+            height: 20px;
+            width: 20px;
+            color: white;
+        }
+    }
+
+    @media(max-width: 340px) {
+        width: 250px;
+    }
+`;
+
+export const GoBackButton = styled.button`
+    padding: 13px;
+    font-size: 16px;
+    color: white;
+    background-color: ${colors.orange.terciary};
+    border: none;
+    outline: 0;
+    border-radius: 15px;
+    opacity: 0.9;
+    transition: all ease .7s;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 1;
+    }
+` 
+
 export const ContainerGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);

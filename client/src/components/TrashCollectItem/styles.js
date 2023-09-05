@@ -5,7 +5,7 @@ const {colors} = theme;
 
 export const ItemContainer = styled.div`
     display: flex;
-    min-height: 450px;
+    min-height: 350px;
     border-radius: 15px;
     width: auto;
     flex-direction: column;

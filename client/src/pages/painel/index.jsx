@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react'
 import * as C from "./styles.js";
 import { useSelector } from 'react-redux';
 import TitlePage from '../../components/TitlePage';
-import { getGeneralStats } from '../../utils/apiCalls.js';
+import { getGeneralStats, getStatsByAddress } from '../../utils/apiCalls.js';
 import ContainerLayout from "../../components/Container";
 import StatsItem from '../../components/StatsItem';
 import Loading from "../../components/Loading";
-import { ResponsivePie } from '@nivo/pie';
-import { switchColor } from '../../utils/switchColor.js';
 import { Link } from 'react-router-dom';
+import PieChart from '../../components/PieChart';
+import {AiOutlineSearch} from "react-icons/ai";
 
 const Painel = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [address, setAddress] = useState("");
   const [generalStats, setGeneralStats] = useState(null);
   const [ArraysLength, setArraysLengths] = useState({
     notes: 0,
@@ -45,8 +46,22 @@ const Painel = () => {
     getStats();
   }, []);
 
+  const HandleGetStatsByAddress = async () => {
+    if(address === "") return alert("Preencha o campo antes!");
+
+    try {
+      const response = await getStatsByAddress(user._id, address, token);
+      if(response.msg) return alert("Bairro não encontrado!");
+
+      setGeneralStats(response);
+      setArraysLengths({...ArraysLength, trashCollections: response.coletas});
+    } catch(error) {
+      alert(error.message);
+    }
+  }
+
 if(generalStats !== null) {
-    const ArrayToNivo = generalStats.totalResiduosPorCategoria.map((residuo, index) => {
+    const ArrayToNivo = generalStats.totalResiduosPorCategoria.map((residuo) => {
       const ObjectToNivoCharts = {
         id: residuo.categoria,
         label: residuo.categoria,
@@ -60,7 +75,7 @@ if(generalStats !== null) {
       <TitlePage 
         title="Estatísticas gerais" 
         orgao={user.orgao}
-        text="Bem-vindo, veja todas as suas estastísticas aqui!"
+        text="Bem-vindo, veja todas as suas estatísticas aqui!"
       />
 
       {isLoading && 
@@ -69,9 +84,53 @@ if(generalStats !== null) {
 
       {!isLoading &&
         <C.Main>
+          {generalStats.bairro &&
+            <C.NameAddress>
+              Bairro {generalStats.bairro}
+            </C.NameAddress>
+          }
+          <C.MainInfosArea>
+            <C.GeneralStatsArea>
+              <h1>Total Resíduos:</h1>
+              <span>{generalStats.totalResiduos}kg</span>
+            </C.GeneralStatsArea>
+            <C.GeneralStatsArea>
+              <h1>Total anotações:</h1>
+              <span>{ArraysLength.notes}</span>
+            </C.GeneralStatsArea>
+            {generalStats.bairro &&
+              <C.GeneralStatsArea>
+                <h1>Coletas Feitas:</h1>
+                <span>{generalStats.coletas}</span>
+              </C.GeneralStatsArea>
+            }
+            
+            {!generalStats.bairro ? (
+              <C.FilterByAdressArea>
+                <h2>Filtrar por bairro:</h2>
+                <C.InputAndSearchButtonArea>
+                <input 
+                  type="text"
+                  placeholder="Exemplo: Navegantes"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+                <button type="button" onClick={HandleGetStatsByAddress}>
+                  <AiOutlineSearch/>
+                </button>
+                </C.InputAndSearchButtonArea>
+              </C.FilterByAdressArea>
+            ): (
+              <>
+                <C.GoBackButton type="button" onClick={getStats}>
+                  Voltar as Estatísticas Gerais
+                </C.GoBackButton>
+              </>
+            )}
+            
+          </C.MainInfosArea>
+
           <C.ContainerGrid>
-            <StatsItem title="Total Anotações" value={ArraysLength.notes} isNote={true}/>
-            <StatsItem title="Total Resíduos" value={generalStats.totalResiduos}/>
             {generalStats.totalResiduosPorCategoria.map((residuo) => (
               <StatsItem 
                 key={residuo.categoria}
@@ -84,64 +143,7 @@ if(generalStats !== null) {
 
           <C.NivoGraphDiv>
             <C.h1>Gráfico Geral em kg:</C.h1>
-            <ResponsivePie
-              data={ArrayToNivo}
-              colors={(bar) => switchColor(bar.data.id)}
-              margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-              innerRadius={0.5}
-              padAngle={0.7}
-              cornerRadius={3}
-              activeOuterRadiusOffset={8}
-              borderWidth={2}
-              borderColor={{
-                  from: 'color',
-                  modifiers: [
-                      [
-                          'darker',
-                          0.2
-                      ]
-                  ]
-              }}
-              arcLinkLabelsSkipAngle={10}
-              arcLinkLabelsTextColor="#ff4500"
-              arcLinkLabelsThickness={2}
-              arcLinkLabelsColor={{ from: 'color' }}
-              arcLabelsSkipAngle={10}
-              arcLabelsTextColor={{
-                  from: 'color',
-                  modifiers: [
-                      [
-                          'darker',
-                          2
-                      ]
-                  ]
-              }}
-              legends={[
-                  {
-                      anchor: 'bottom',
-                      direction: 'row',
-                      justify: false,
-                      translateX: -10,
-                      translateY: 56,
-                      itemsSpacing: -10,
-                      itemWidth: 170,
-                      itemHeight: 18,
-                      itemTextColor: '#999',
-                      itemDirection: 'left-to-right',
-                      itemOpacity: 1,
-                      symbolSize: 18,
-                      symbolShape: 'circle',
-                      effects: [
-                          {
-                              on: 'hover',
-                              style: {
-                                  itemTextColor: '#000'
-                              }
-                          }
-                      ]
-                  }
-              ]}
-            />
+            <PieChart data={ArrayToNivo}/>
           </C.NivoGraphDiv>
           
           <C.h4>As Médias Gerais:</C.h4>

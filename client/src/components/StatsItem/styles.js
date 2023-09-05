@@ -60,6 +60,10 @@ export const H1 = styled.h1`
     color: ${colors.orange.primary};
     font-weight: 500;
     margin-top: 20px;
+
+    @media(max-width: 320px) {
+        font-size: 15px;
+    }
 `;
 
 export const Span = styled.span`
