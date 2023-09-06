@@ -93,7 +93,7 @@ const Login = () => {
             <C.Button>Fazer Login</C.Button>
           </C.Form>
         ) : (
-          <Register setIsRegisterNeeded={setIsRegisterNeeded}/>
+          <Register setIsRegisterNeeded={setIsRegisterNeeded} setIsLoading={setIsLoading}/>
         )}
 
         <C.TextToRegisterArea>

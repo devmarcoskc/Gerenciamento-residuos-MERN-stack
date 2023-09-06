@@ -26,7 +26,7 @@ const createUserFormSchema = z.object({
     .min(6, "Senha deve conter no mínimo 6 caracteres"),
 })
 
-const Register = ({setIsRegisterNeeded}) => {
+const Register = ({setIsRegisterNeeded, setIsLoading}) => {
   const [isNeededErrorMsg, setIsNeededErrorMsg] = useState(false); 
 
   const {register, handleSubmit, formState: {errors}} = useForm({
@@ -34,10 +34,13 @@ const Register = ({setIsRegisterNeeded}) => {
   });
 
   const createUser = async (data) => {
+    setIsLoading(true);
     try {
       const response = await createNewUser(data);
       response.data.emailAlreadyExists ? setIsNeededErrorMsg(true) : setIsRegisterNeeded(false);
+      setIsLoading(false);
     } catch(error) {
+      setIsLoading(false);
       alert(error.message);
     }
   }
