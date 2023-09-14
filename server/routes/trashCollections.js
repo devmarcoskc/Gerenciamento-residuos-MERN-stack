@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.post("/", autorization, createTrashCollection);
 router.get("/:orgaoId", autorization, getTrashCollections);
-router.get("/:orgaoId/:addressEncoded", autorization, getTrashCollectionsByAddress);
+router.get("/:orgaoId/filters", autorization, getTrashCollectionsByAddress);
 
 export default router;

@@ -90,51 +90,51 @@ export const getTrashCollections = async (req, res) => {
 export const getTrashCollectionsByAddress = async (req, res) => {
     try {
         const {orgaoId} = req.params;
-        const {addressEncoded} = req.params;
+        const {address, date} = req.query;
 
-        const address = decodeURI(addressEncoded);
+        async function checkIfQuerysExists(address, date) {
+            if(address !== "" && date === "") {
+                return await TrashCollection.find({orgaoId: orgaoId, nomeDoBairro: {$regex:address}});
+            }
+            if(address === "" && date !== "") {
+                return await TrashCollection.find({orgaoId: orgaoId, data: {$regex:date}});
+            }
 
-        const trashCollections = await TrashCollection.find({orgaoId: orgaoId, nomeDoBairro:address});
-        if(trashCollections.length === 0) return res.status(200).json({msg: "Bairro não encontrado"});
+            return await TrashCollection.find({orgaoId: orgaoId, nomeDoBairro: {$regex:address}, data: {$regex: date}});
+        }
+
+        const trashCollections = await checkIfQuerysExists(address, date);
+        if(trashCollections.length === 0) return res.status(200).json({msg: "Nenhum item encontrado!"});
 
         const totalResiduos = trashCollections.reduce((result, quantity) => {
             return (result + quantity.totalResiduos);
         }, 0);
 
-        let ResiduosLeft = [];
-        let index = trashCollections.length;
-        for(let i=1; i < index; i++) {
-            trashCollections[i].residuoPorCategoria.map((residuo) => {
-                trashCollections[0].residuoPorCategoria.map((residuoBase) => {
-                    if(residuo.categoria === residuoBase.categoria) {
-                        residuoBase.quantidade = residuo.quantidade + residuoBase.quantidade;
-                        let indexToSplit = trashCollections[i].residuoPorCategoria.indexOf(residuo);
-                        trashCollections[i].residuoPorCategoria.splice(indexToSplit, 1);
-                        trashCollections[i].residuoPorCategoria.filter((residuosLeft) => {
-                            ResiduosLeft.push(residuosLeft);
-                        })
-                    }
-                });
-            });
-        }
+        let resultado = [];
+        trashCollections.forEach((item) => {
+          item.residuoPorCategoria.forEach((residuo) => {
+            let index = resultado.findIndex((element) => element.categoria === residuo.categoria);
         
-        let totalResiduosPorCategoria = [];
-        ResiduosLeft.filter((residuo) => {
-            totalResiduosPorCategoria.push(residuo);
+            if (index === -1) {
+              resultado.push({ categoria: residuo.categoria, quantidade: residuo.quantidade });
+            } else {
+              resultado[index].quantidade += residuo.quantidade;
+            }
+          });
         });
-        trashCollections[0].residuoPorCategoria.filter((residuo) => {
-            totalResiduosPorCategoria.push(residuo);
-        });
-    
+        
         const generalStats = {
             orgaoId,
             totalResiduos,
-            totalResiduosPorCategoria,
-            bairro: address,
+            totalResiduosPorCategoria: resultado,
+            filtros: {
+                bairro: address,
+                data: date,
+            },
             coletas: trashCollections.length
         }
-        
-        res.status(200).json(generalStats);
+
+       res.status(200).json(generalStats);
     } catch (error) {
         res.status(404).json({error: error.message});
     }

@@ -8,16 +8,19 @@ import StatsItem from '../../components/StatsItem';
 import Loading from "../../components/Loading";
 import { Link } from 'react-router-dom';
 import PieChart from '../../components/PieChart';
+import { FormatDate, FormatDateToShow } from '../../utils/formatDate.js';
+import { FormatWord } from '../../utils/formatWord.js';
 import {AiOutlineSearch} from "react-icons/ai";
 
 const Painel = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [address, setAddress] = useState("");
+  const [filters, setFilters] = useState({
+    filterByAddress: "",
+    filterByMonth: "",
+    filterByYear: ""
+  })
   const [generalStats, setGeneralStats] = useState(null);
-  const [ArraysLength, setArraysLengths] = useState({
-    notes: 0,
-    trashCollections:0
-  });
+  const [numbersOfCollections, setNumbersOfCollections] = useState(0);
 
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
@@ -25,36 +28,38 @@ const Painel = () => {
   const getStats = async () => {
     try {
       setIsLoading(true);
+      setFilters({filterByAddress: "", filterByMonth: "", filterByYear: ""});
+
       const response = await getGeneralStats(user._id, token);
      
       if(response.generalStats[0]) {
         setGeneralStats(response.generalStats[0]);
-        setArraysLengths({
-          notes: response.notes.length,
-          trashCollections: response.trashCollections.length,
-        })
+        setNumbersOfCollections(response.trashCollections.length);
       }
       setIsLoading(false);
     } catch(error) {
       setIsLoading(false);
       alert(error.message);
     }
-    
   }
 
   useEffect(() => {
     getStats();
   }, []);
 
-  const HandleGetStatsByAddress = async () => {
-    if(address === "") return alert("Preencha o campo antes!");
+  const HandleGetStatsByFilters = async () => {
+    if(filters.filterByAddress === "" && filters.filterByMonth === "" && filters.filterByYear === "") {
+      return alert("Preencha os campos antes de filtrar!");
+    }
 
+    const Date = FormatDate(filters.filterByMonth, filters.filterByYear);
+    
     try {
-      const response = await getStatsByAddress(user._id, address, token);
-      if(response.msg) return alert("Bairro não encontrado!");
+      const response = await getStatsByAddress(user._id, filters.filterByAddress.toLocaleLowerCase(), Date, token);
+      if(response.msg) return alert(response.msg);
 
       setGeneralStats(response);
-      setArraysLengths({...ArraysLength, trashCollections: response.coletas});
+      setNumbersOfCollections(response.coletas);
     } catch(error) {
       alert(error.message);
     }
@@ -84,50 +89,89 @@ if(generalStats !== null) {
 
       {!isLoading &&
         <C.Main>
-          {generalStats.bairro &&
+          {generalStats.filtros &&
             <C.NameAddress>
-              Bairro {generalStats.bairro}
+              {generalStats.filtros.bairro !== "" && generalStats.filtros.data === "" &&
+                `Bairro ${FormatWord(generalStats.filtros.bairro)}` 
+              }
+              {generalStats.filtros.bairro !== ""  && generalStats.filtros.data !== "" && 
+                `Bairro ${FormatWord(generalStats.filtros.bairro)}, mês ${FormatDateToShow(generalStats.filtros.data).month} do ano ${FormatDateToShow(generalStats.filtros.data).year}`
+              }
+              {generalStats.filtros.bairro === "" && generalStats.filtros.data !== "" &&
+                `Resultados do mês ${FormatDateToShow(generalStats.filtros.data).month} do ano ${FormatDateToShow(generalStats.filtros.data).year}`
+              }
             </C.NameAddress>
           }
+
           <C.MainInfosArea>
             <C.GeneralStatsArea>
               <h1>Total Resíduos:</h1>
               <span>{generalStats.totalResiduos}kg</span>
             </C.GeneralStatsArea>
             <C.GeneralStatsArea>
-              <h1>Total anotações:</h1>
-              <span>{ArraysLength.notes}</span>
+              <h1>Coletas Feitas:</h1>
+              <span>{generalStats.coletas ? `${generalStats.coletas}` : `${numbersOfCollections}`}</span>
             </C.GeneralStatsArea>
-            {generalStats.bairro &&
-              <C.GeneralStatsArea>
-                <h1>Coletas Feitas:</h1>
-                <span>{generalStats.coletas}</span>
-              </C.GeneralStatsArea>
-            }
-            
-            {!generalStats.bairro ? (
-              <C.FilterByAdressArea>
-                <h2>Filtrar por bairro:</h2>
-                <C.InputAndSearchButtonArea>
-                <input 
-                  type="text"
-                  placeholder="Exemplo: Navegantes"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-                <button type="button" onClick={HandleGetStatsByAddress}>
+
+            {!generalStats.filtros ? (
+              <C.FiltersArea>
+                <C.FilterByAdressArea>
+                  <C.Label htmlFor='address'>Bairro:</C.Label>
+                  <C.InputAndSearchButtonArea>
+                    <input 
+                      name='address'
+                      type="text"
+                      placeholder="Digite o bairro"
+                      value={filters.filterByAddress}
+                      onChange={(e) => setFilters({...filters, filterByAddress: e.target.value})}
+                    />
+                  </C.InputAndSearchButtonArea>
+                </C.FilterByAdressArea>
+
+                <C.FilterByDateArea>
+                  <C.Label htmlFor='month'>Mês:</C.Label>
+                  <C.Select 
+                    name='month'
+                    value={filters.filterByMonth} 
+                    onChange={(e) => setFilters({...filters, filterByMonth: (e.target.value)})}
+                  >
+                    <option value="">Selecione</option>
+                    <option value="janeiro">Janeiro</option>
+                    <option value="fevereiro">Fevereiro</option>
+                    <option value="março">Março</option>
+                    <option value="abril">Abril</option>
+                    <option value="maio">Maio</option>
+                    <option value="junho">Junho</option>
+                    <option value="julho">Julho</option>
+                    <option value="agosto">Agosto</option>
+                    <option value="setembro">Setembro</option>
+                    <option value="outubro">Outubro</option>
+                    <option value="novembro">Novembro</option>
+                    <option value="dezembro">Dezembro</option>
+                  </C.Select>
+                </C.FilterByDateArea>
+
+                <C.FilterByDateArea>
+                  <C.Label htmlFor='year'>Ano:</C.Label>
+                  <input 
+                    name='year'
+                    type="text"
+                    placeholder="Digite"
+                    value={filters.filterByYear}
+                    onChange={(e) => setFilters({...filters, filterByYear: e.target.value})}
+                  />
+                </C.FilterByDateArea>
+
+                <C.FilterButton type="button" onClick={HandleGetStatsByFilters}>
+                  Filtrar
                   <AiOutlineSearch/>
-                </button>
-                </C.InputAndSearchButtonArea>
-              </C.FilterByAdressArea>
+                </C.FilterButton>
+              </C.FiltersArea>
             ): (
-              <>
-                <C.GoBackButton type="button" onClick={getStats}>
-                  Voltar as Estatísticas Gerais
-                </C.GoBackButton>
-              </>
+              <C.GoBackButton type="button" onClick={getStats}>
+                Voltar as Estatísticas Gerais
+              </C.GoBackButton>
             )}
-            
           </C.MainInfosArea>
 
           <C.ContainerGrid>
@@ -152,7 +196,7 @@ if(generalStats !== null) {
               <StatsItem 
                 key={residuo.categoria}
                 title={`Resíduo ${residuo.categoria}`} 
-                value={(residuo.quantidade/ArraysLength.trashCollections).toFixed(1)}
+                value={(residuo.quantidade/numbersOfCollections).toFixed(1)}
                 isAvarage={true}
               />
             ))}

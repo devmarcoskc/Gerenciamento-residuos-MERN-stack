@@ -11,7 +11,7 @@ export const Main = styled.main`
 
 export const MainInfosArea = styled.div`
     display: flex;
-    gap: 40px;
+    gap: 15px;
     margin-bottom: 10px;
 
     @media(max-width: 1024px) {
@@ -56,24 +56,34 @@ export const NameAddress = styled.h1`
     font-size: 25px;
     line-height: 0;
     color: ${colors.orange.primary};
-`
+`;
+
+export const FiltersArea = styled.div`
+    display: flex;
+    flex: 1;
+    gap: 15px;
+
+    @media(max-width: 768px) {
+        flex-direction: column;
+        gap: 10px;
+    }
+`;
+
+export const Label = styled.label`
+    font-size: 17px;
+    color: ${colors.orange.secondary};
+    font-weight: 500;
+`;
 
 export const FilterByAdressArea = styled.div`
     display: flex;
-    gap: 10px;
+    gap: 5px;
     align-items: center;
-    flex: 1;
-
-    h2 {
-        font-size: 20px;
-        color: ${colors.orange.primary};
-        font-weight: 500;
-    }
 
     @media(max-width: 1024px) {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0;
+        gap: 5px;
     }
 
     @media(max-width: 320px) {
@@ -86,10 +96,9 @@ export const FilterByAdressArea = styled.div`
 export const InputAndSearchButtonArea = styled.div`
     display: flex;
     align-items: center;
-    width: 300px;
+    width: 120px;
     font-size: 15px;
     height: 30px;
-    position: relative;
 
     input {
         outline: none;
@@ -98,8 +107,7 @@ export const InputAndSearchButtonArea = styled.div`
         font-size: 15px;
         color: ${colors.green.secondary};
         border: 1px solid ${colors.orange.terciary};
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
+        border-radius: 5px;
         padding-left: 8px;
     }
 
@@ -107,30 +115,73 @@ export const InputAndSearchButtonArea = styled.div`
         color: ${colors.orange.terciary};
     }
 
-    button {
-        outline: 0;
-        border: none;
-        background-color: ${colors.orange.terciary};
-        height: 34px;
-        width: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-
-        svg {
-            height: 20px;
-            width: 20px;
-            color: white;
-        }
-    }
-
-    @media(max-width: 340px) {
+    @media(max-width: 768px) {
         width: 250px;
     }
 `;
+
+export const Select = styled.select`
+    height: 35px;
+    border: 1px solid ${colors.orange.terciary};
+    border-radius: 5px;
+    color: ${colors.orange.terciary};
+    padding: 5px;
+    outline: 0;
+`
+
+export const FilterByDateArea = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    input {
+        outline: none;
+        height: 30px;
+        width: 50px;
+        font-size: 15px;
+        color: ${colors.green.secondary};
+        border: 1px solid ${colors.orange.terciary};
+        border-radius: 5px;
+        padding-left: 8px;
+    }
+
+    input::placeholder {
+        color: ${colors.orange.terciary};
+    }
+
+    @media(max-width: 768px) {
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-start;
+    }
+`;
+
+export const FilterButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 90px;
+    font-size: 16px;
+    background-color: ${colors.orange.terciary};
+    opacity: 0.9;
+    color: white;
+    outline: 0;
+    border: none;
+    border-radius: 5px;
+    transition: all ease .7s;
+    cursor: pointer;
+
+    svg {
+        height: 18px;
+        width: 18px;
+        margin-left: 5px;
+    }
+
+    &:hover {
+        opacity: 1;
+    }
+`
 
 export const GoBackButton = styled.button`
     padding: 13px;

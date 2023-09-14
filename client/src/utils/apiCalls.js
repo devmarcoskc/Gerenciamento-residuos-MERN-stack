@@ -112,13 +112,15 @@ export const createTrashCollection = async (data, token) => {
     }
 }
 
-export const getStatsByAddress = async (id, address, token) => {
-    const AddresToURL= encodeURI(address);
+export const getStatsByAddress = async (id, address, date, token) => {
     
     try {
-        const response = await api.get(`/collect/${id}/${AddresToURL}`, {headers: {
-            Authorization: `Bearer ${token}`,
-        }});
+        const response = await api.get(`/collect/${id}/filters`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }, 
+            params: {date, address}
+        });
 
         return response.data;
     } catch(error) {

@@ -30,7 +30,8 @@ const Notes = () => {
         const response = await getNotes(user._id, token);
 
         const ChangedResponse = response.map((note) => {
-          note.createdAt = note.createdAt.replace(/-/gi, "/");
+          note.createdAt = note.createdAt.slice(0, 10);
+          note.createdAt = note.createdAt.split('-').reverse().join('/');
           return note;
         });
 

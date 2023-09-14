@@ -5,11 +5,12 @@ const FiltersInputs = ({label, search, setSearch, isAddress}) => {
   return (
     <C.FilterArea>
         <C.LabelAndInputDiv>
-            <label>Filtrar por data:</label>
+            <label htmlFor='filter-date'>Filtrar por data:</label>
             <input
+                name='filter-date'
                 value={search.filterBydate}
                 type="text"
-                placeholder="Exemplo: 2023/07/18"
+                placeholder="Exemplo: 18/07/2023"
                 onChange={(e) => setSearch({...search, filterBydate: e.target.value})}
             />
         </C.LabelAndInputDiv>
@@ -17,18 +18,20 @@ const FiltersInputs = ({label, search, setSearch, isAddress}) => {
         <C.LabelAndInputDiv>
             {isAddress ? (
                 <>
-                    <label>Filtrar por bairro:</label>
+                    <label htmlFor='filter-address'>Filtrar por bairro:</label>
                     <input
-                    value={search.filterByAddress}
-                    type="text"
-                    placeholder="Exemplo: 'Jardim'"
-                    onChange={(e) => setSearch({...search, filterByAddress: e.target.value})}
+                        name='filter-address'
+                        value={search.filterByAddress}
+                        type="text"
+                        placeholder="Exemplo: 'Jardim'"
+                        onChange={(e) => setSearch({...search, filterByAddress: e.target.value})}
                     />
                 </>
             ) : (
                 <>
-                    <label>{label}</label>
+                    <label htmlFor='filter-name'>{label}</label>
                     <input
+                        name='filter-name'
                         value={search.filterByName}
                         type="text"
                         placeholder="Exemplo: 'Marcos'"

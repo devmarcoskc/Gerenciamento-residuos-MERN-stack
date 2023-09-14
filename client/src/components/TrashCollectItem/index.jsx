@@ -1,6 +1,7 @@
 import React, {memo} from 'react'
 import * as C from "./styles.js";
 import {ImStatsBars} from "react-icons/im";
+import { FormatWord } from '../../utils/formatWord.js';
 
 const TrashCollectItem = ({trashCollect}) => {
   return (
@@ -19,7 +20,7 @@ const TrashCollectItem = ({trashCollect}) => {
 
         <C.TitleAndText>
          <h3>Nome do Bairro:</h3>
-         <span>{trashCollect.nomeDoBairro}</span>
+         <span>{FormatWord(trashCollect.nomeDoBairro)}</span>
         </C.TitleAndText>
 
         <C.TitleAndText>

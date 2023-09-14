@@ -14,10 +14,6 @@ const NoteItem = ({note}) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const FormatDate = (date) => {
-     return date.slice(0,10);
-  }
-
   const handleDeleteNote = async () => {
     const data = {
         orgaoId: user._id,
@@ -35,7 +31,7 @@ const NoteItem = ({note}) => {
     <C.NoteItem>
         <BsClipboard2Fill/>
         <C.TitleNote>
-            Data: {FormatDate(note.createdAt)}
+            Data: {note.createdAt}
         </C.TitleNote>
         <C.TitleNote>
             Nome: {note.nome}

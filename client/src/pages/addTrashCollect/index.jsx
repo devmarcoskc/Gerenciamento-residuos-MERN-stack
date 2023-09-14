@@ -14,7 +14,10 @@ const createTrashCollectSchema = z.object({
     .nonempty("Campo obrigatório")
     .min(2, "Deve conter no mínimo 2 caracteres")
     .max(40, "Deve conter no máximo 40 caracteres")
-    .regex(new RegExp(/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\s]+$/), "Nome inválido"),
+    .regex(new RegExp(/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\s]+$/), "Nome inválido")
+    .transform((word) => {
+      return word.toLocaleLowerCase()
+    }),
   nomeDaRota: z.string()
     .nonempty("Campo obrigatório")
     .min(4, "Deve conter no mínimo 6 caracteres")
@@ -23,7 +26,7 @@ const createTrashCollectSchema = z.object({
   data: z.string()
     .nonempty("Campo obrigatório")
     .transform((data) => {
-      return data.replace(/-/g, "/")
+      return data.split('-').reverse().join('/');
     }),
   coletaSeletiva: z.string()
   .nonempty("Campo obrigatório"),
@@ -71,7 +74,7 @@ const AddTrashCollect = () => {
     data.coletaSeletiva === "Sim" ? data.coletaSeletiva = true : data.coletaSeletiva = false;
     data.totalResiduos = totalResiduos;
     data.orgaoId = user._id;
-    
+
     if(data.residuoPorCategoria.length === undefined) {
       return alert("Adicione os resíduos por categoria!")
     } 
@@ -96,7 +99,7 @@ const AddTrashCollect = () => {
 
           <C.Container>
             <C.LabelAndInputDiv>
-              <label>Nome do Bairro:</label>
+              <label htmlFor='nomeDoBairro'>Nome do Bairro:</label>
               <input
                 type="text"
                 placeholder="Digite o nome do bairro"
@@ -106,7 +109,7 @@ const AddTrashCollect = () => {
             </C.LabelAndInputDiv>
 
             <C.LabelAndInputDiv>
-              <label>Nome da Rota:</label>
+              <label htmlFor='nomeDaRota'>Nome da Rota:</label>
               <input
                 type="text"
                 placeholder="Digite o nome do bairro"
@@ -118,7 +121,7 @@ const AddTrashCollect = () => {
 
           <C.Container>
             <C.LabelAndInputDiv>
-              <label>Data da coleta:</label>
+              <label htmlFor='data'>Data da coleta:</label>
               <C.shortWidthInput
                   type="date"
                   placeholder="Selecione a data"
@@ -128,7 +131,7 @@ const AddTrashCollect = () => {
             </C.LabelAndInputDiv>
 
             <C.LabelAndInputDiv>
-              <label>Coleta seletiva:</label>
+              <label htmlFor='coletaSeletiva'>Coleta seletiva:</label>
               <select {...register('coletaSeletiva')}>
                 <option>Não</option>
                 <option>Sim</option>
