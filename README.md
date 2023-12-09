@@ -24,7 +24,7 @@ Para executar o projeto siga os passos:
      `npm install`
 3. Crie um banco de dados com atlas mongodb:
    
-    `[https://www.mongodb.com/cloud/atlas.com](https://www.mongodb.com/atlas/database)`
+    `https://www.mongodb.com/atlas/database`
 4. Na pasta server crie um arquivo de ambiente ".env" e adicione as seguintes variáveis:
 
      `JWT_SECRET = 'adicione uma senha forte aqui'`
