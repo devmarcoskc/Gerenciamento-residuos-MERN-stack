@@ -1,8 +1,8 @@
 # EcoAdministração
 
 ## Sobre o projeto:
-EcoAdministração é um sistema de gerenciamento de resíduos sólidos para prefeituras e empresas. As funcionalidades do software visam atender às demandas necessárias para a gestão eficiente dos resíduos pelos órgãos responsáveis.
-A motivação para fazer o projeto se teve, porque algumas prefeituras e empresas não possuírem um sistema de gerencimaneto de resíduos sólidos, fazendo sua administração com base em pranchetas escritas.
+EcoAdministração é um sistema de gerenciamento de resíduos sólidos para prefeituras e empresas. As funcionalidades do sistema visam atender às demandas necessárias para a gestão eficiente dos resíduos pelos órgãos responsáveis.
+A motivação para fazer o projeto se teve, porque algumas prefeituras e empresas não possuem um sistema de gerencimaneto de resíduos sólidos, fazendo sua administração com base em pranchetas escritas. Sendo assim, causando problemas e atrasos na hora de apresentar os dados dos resíduos sólidos gerados pelo órgão responsável. Para ver a finalização da fase inicial do projeto, segue o link: https://gerenciamento-residuos-solidos.onrender.com/
 
 ## Funcionalidades:
 - Quantificação de todos os resíduos coletados, mostrando a média por coleta:
@@ -42,3 +42,6 @@ Para executar o projeto siga os passos:
 8. Para rodar no Front End use o seguinte comando:
 
    `npm run dev`
+
+## Tecnlogias Utilizadas:
+Node.Js (CRUD, APIs REST/RESTful, Autenticação/Autorização), MongoDB (Arquitetura de banco de dados), React.js (hooks, redux, react-hook-form, zod, axios), Styled-components, nivo-charts.
