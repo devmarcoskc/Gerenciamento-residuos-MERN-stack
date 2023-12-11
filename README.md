@@ -42,6 +42,3 @@ Para executar o projeto siga os passos:
 8. Para rodar no Front End use o seguinte comando:
 
    `npm run dev`
-
-## Tecnlogias Utilizadas:
-Node.Js (CRUD, APIs REST/RESTful, Autenticação/Autorização), MongoDB (Arquitetura de banco de dados), React.js (hooks, redux, react-hook-form, zod, axios), Styled-components, nivo-charts.
