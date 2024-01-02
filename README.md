@@ -1,8 +1,7 @@
 # EcoAdministração
 
 ## Sobre o projeto:
-EcoAdministração é um sistema de gerenciamento de resíduos sólidos para prefeituras e empresas. As funcionalidades do sistema visam atender às demandas necessárias para a gestão eficiente dos resíduos pelos órgãos responsáveis.
-A motivação para fazer o projeto se teve, porque algumas prefeituras e empresas não possuem um sistema de gerencimaneto de resíduos sólidos, fazendo sua administração com base em pranchetas escritas. Sendo assim, causando problemas e atrasos na hora de apresentar os dados dos resíduos sólidos gerados pelo órgão responsável. Para ver a finalização da fase inicial do projeto, segue o link: https://gerenciamento-residuos-solidos.onrender.com/
+EcoAdministração é um sistema de gerenciamento de resíduos sólidos para prefeituras e empresas. A idéia para criar o sofware começou quando estive envolvido na construção do plano de saneamento de básico da cidade de Santa Vitória do Palmar, há alguns anos atrás, e notei que a prefeitura não possuia nenhum sistema para fazer o gerencimanto de dados dos resíduos sólidos gerados no município. Então, entrei em contato com a prefeitura e mostrei o meu sistema para resolver o problema. As funcionalidades do sistema foram projetadas para atender às exigências dos órgãos reguladores no gerenciamento de resíduos, tais como: estatísticas dos resíduos gerados, números por categoria de resíduo, quantificação por bairro e rotas. Esse projeto foi de extensão da minha faculdade, Uninter. O Link abaixo é para ver uma demonstração do projeto, segue o link: https://gerenciamento-residuos-solidos.onrender.com/
 
 ## Funcionalidades:
 - Quantificação de todos os resíduos coletados, mostrando a média por coleta:
